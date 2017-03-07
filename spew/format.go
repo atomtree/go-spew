@@ -282,9 +282,13 @@ func (f *formatState) format(v reflect.Value) {
 		f.fs.Write(closeBracketBytes)
 
 	case reflect.String:
+		if v.Type().PkgPath()=="gopkg.in/mgo.v2/bson" && v.Type().Name()="ObjectId"{
+			f.fs.Write([]byte(hex.EncodeToString([]byte(v.String())))
+				  }else{
+				
 		f.fs.Write([]byte(v.String()))
-
-	case reflect.Interface:
+			}
+case reflect.Interface:
 		// The only time we should get here is for nil interfaces due to
 		// unpackValue calls.
 		if v.IsNil() {
